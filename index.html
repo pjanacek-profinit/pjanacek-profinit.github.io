@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ateliér Magdaléna | Zahradní architektura</title>
+    <!-- Favicon - Honosné M -->
+    <link rel="icon" href="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/d5cf1dac-fee7-466d-8d07-7b397d434bf2.png" type="image/png">
+    
+    <!-- Fonty: Cormorant Garamond (pro nadpisy - Royal styl) + Poppins (pro texty) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #fdfdfd; /* Ještě bělejší, čistší pozadí */
+            --surface: #ffffff;
+            --text: #5a5a5a;
+            --headline: #1a2e22; /* Tmavě zelená až černá pro nadpisy - luxusnější */
+            --green: #4CAF50; /* Akcent */
+            --green-dark: #388E3C;
+            --shadow: 0 15px 40px rgba(0,0,0,0.08);
+            --radius: 12px; /* Méně kulaté, více elegantní */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background-color: var(--bg);
+        }
+
+        /* TYPOGRAFIE - ROYAL STYL */
+        h1, h2, h3, .project-title, .step-number {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--headline);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(26, 46, 34, 0.6), rgba(26, 46, 34, 0.6)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .hero-content {
+            width: 100%;
+            padding-top: 60px; /* Optická korekce */
+        }
+        .hero h1 {
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: white;
+        }
+        .hero-subtitle {
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 1rem 2.8rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(76,175,80,0.4);
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(76,175,80,0.5);
+        }
+
+        /* SEKCE */
+        section { padding: 100px 0; }
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        /* Ozdobná linka pod nadpisem */
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--green);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        /* O MNĚ */
+        .about { background: var(--surface); }
+        .about-content { max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.15rem; }
+        .about p { margin-bottom: 1.5rem; }
+
+        /* PORTFOLIO */
+        .projects { background: #f8f9fa; }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        .project-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .project-card:hover { transform: translateY(-10px); }
+        .project-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover img { transform: scale(1.03); }
+        .project-content { padding: 2rem; }
+        .project-title { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .project-location {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        /* SLUŽBY */
+        .services { background: var(--surface); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .service-item {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+        .service-item:hover {
+            border-color: var(--green);
+            box-shadow: 0 10px 30px rgba(76,175,80,0.1);
+        }
+        .service-item h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        
+        /* Zvýrazněná služba - Jarní start */
+        .service-highlight {
+            border: 2px solid var(--green);
+            background: #fdffff;
+            position: relative;
+        }
+        .service-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .price {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--headline);
+            font-size: 1.1rem;
+        }
+
+        /* PROCES */
+        .process { background: #f8f9fa; }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        .step-number {
+            font-size: 3rem;
+            color: var(--green);
+            opacity: 0.3;
+            font-weight: 700;
+            margin-bottom: -15px;
+            position: relative;
+            z-index: 0;
+        }
+        .step h3 { font-size: 1.4rem; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+
+        /* KONTAKT */
+        .contact { background: var(--surface); }
+        .contact-content { max-width: 600px; margin: 0 auto; text-align: center; }
+        .contact-highlight { font-size: 1.3rem; margin: 2rem 0; color: var(--headline); font-family: 'Cormorant Garamond', serif; }
+        form { margin-top: 2rem; }
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            background: #fcfcfc;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--green); }
+        textarea { min-height: 150px; resize: vertical; }
+        button {
+            width: 100%;
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        button:hover { background: var(--green-dark); }
+
+        footer {
+            background: #1a2e22;
+            color: #ccc;
+            text-align: center;
+            padding: 3rem 0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            section { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-content">
+            <span class="hero-subtitle">Zahradní architektura</span>
+            <h1>Ateliér Magdaléna</h1>
+            <p>Navrhuji zahrady, které dýchají. <br>Pro rodinné domy a byty v Praze a na Pardubicku.</p>
+            <a href="#sluzby" class="btn">Prohlédnout služby</a>
+        </div>
+    </section>
+
+    <!-- O mně -->
+    <section id="o-mne" class="about">
+        <div class="container">
+            <h2 class="section-title">O mně</h2>
+            <div class="about-content">
+                <p>Jsem Magdaléna. Věřím, že zahrada není jen "venkovní prostor", ale další pokoj vašeho domu. Místo, kde ráno pijete kávu a večer posloucháte ticho.</p>
+                <p>Specializuji se na osvěžení stávajících zahrad a teras. Můj styl je jemný, ženský a udržitelný – nečekejte betonové pláně, ale živou přírodu, která se mění s ročním obdobím a dělá vám radost bez dřiny.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Služby - S novým balíčkem -->
+    <section id="sluzby" class="services">
+        <div class="container">
+            <h2 class="section-title">Služby ateliéru</h2>
+            <div class="services-grid">
+                
+                <!-- Nový produkt: Jarní start -->
+                <div class="service-item service-highlight">
+                    <div class="service-badge">Nejoblíbenější</div>
+                    <h3>Jarní start</h3>
+                    <p>90minutová konzultace přímo u vás. Projdeme zahradu, řeknu co vytrhat, co zasadit a načrtnu rychlou skicu řešení.</p>
+                    <span class="price">2 500 Kč / návštěva</span>
+                </div>
+
+                <div class="service-item">
+                    <h3>Návrh zahrady</h3>
+                    <p>Kompletní proměna. Od konceptu přes osazovací plán až po doporučení materiálů. Pro rodinné domy i chaty.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>Terasa & Balkon</h3>
+                    <p>Máte jen pár metrů? Udělám z nich oázu. Vertikální zeleň, truhlíky a posezení v soukromí.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio - 6 ukázek -->
+    <section id="projekty" class="projects">
+        <div class="container">
+            <h2 class="section-title">Portfolio</h2>
+            <div class="projects-grid">
+                <!-- Projekt 1 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Rodinná zahrada">
+                    <div class="project-content">
+                        <h3 class="project-title">Rodinná oáza</h3>
+                        <div class="project-location">Praha – Východ</div>
+                        <p>Stará zahrada dostala nový dech. Vytvořili jsme divoký kout pro děti a klidovou zónu s trvalkami, které kvetou od jara do podzimu.</p>
+                    </div>
+                </div>
+                <!-- Projekt 2 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Městská terasa">
+                    <div class="project-content">
+                        <h3 class="project-title">Zelená terasa</h3>
+                        <div class="project-location">Praha – Vinohrady</div>
+                        <p>Jak dostat les na 12 m²? Kombinace velkých nádob, popínavých rostlin a chytrého nábytku vytvořila naprosté soukromí.</p>
+                    </div>
+                </div>
+                <!-- Projekt 3 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Zahrada u lesa">
+                    <div class="project-content">
+                        <h3 class="project-title">Zahrada u lesa</h3>
+                        <div class="project-location">Pardubicko</div>
+                        <p>Plynulý přechod mezi pěstěným trávníkem a okolní přírodou. Použili jsme původní české druhy rostlin.</p>
+                    </div>
+                </div>
+                <!-- Projekt 4 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1469796466635-455ede028aca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Moderní dvorek">
+                    <div class="project-content">
+                        <h3 class="project-title">Minimalistický dvůr</h3>
+                        <div class="project-location">Praha – Západ</div>
+                        <p>Čisté linie, bílý štěrk a výrazné traviny. Bezúdržbové řešení pro vytížený pár.</p>
+                    </div>
+                </div>
+                <!-- Projekt 5 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1425819222418-4a0bbd4eba0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Rekonstrukce">
+                    <div class="project-content">
+                        <h3 class="project-title">Vila z 30. let</h3>
+                        <div class="project-location">Pardubice</div>
+                        <p>Citlivá rekonstrukce historické zahrady. Zachovali jsme staré stromy a doplnili je o romantické podrosty.</p>
+                    </div>
+                </div>
+                <!-- Projekt 6 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1470058869958-2a77ade41c02?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Bylinková zahrada">
+                    <div class="project-content">
+                        <h3 class="project-title">Bylinkové patro</h3>
+                        <div class="project-location">Praha – Byt</div>
+                        <p>Vertikální stěna plná bylinek a jedlých květů přímo u kuchyně. Funkční a voňavé řešení.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proces -->
+    <section id="proces" class="process">
+        <div class="container">
+            <h2 class="section-title">Jak to probíhá</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <h3>Káva & Představy</h3>
+                    <p>Nezávazně si popovídáme o tom, co se vám líbí a jak na zahradě žijete.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <h3>Koncept</h3>
+                    <p>Připravím skici a náladové koláže. Uvidíte směr, kterým se vydáme.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <h3>Projekt</h3>
+                    <p>Detailní plán výsadby a technické řešení, podle kterého se dá stavět.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <h3>Dozor</h3>
+                    <p>Pohlídám, aby se růže zasadila tam, kam patří, a ne o metr vedle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="contact">
+        <div class="container">
+            <h2 class="section-title">Napište mi</h2>
+            <div class="contact-content">
+                <p>Máte zahradu, která potřebuje lásku? Nebo jen prázdný balkon?</p>
+                <div class="contact-highlight">
+                    magdalena@zahrady.cz | +420 777 123 456
+                </div>
+                <p style="font-size: 0.9rem; color: #888;">Působím v Praze a na trase Praha – Pardubice</p>
+                
+                <form>
+                    <input type="text" placeholder="Vaše jméno" required>
+                    <input type="email" placeholder="Váš e-mail" required>
+                    <textarea placeholder="Co vás na zahradě trápí?"></textarea>
+                    <button type="submit">Odeslat nezávazně</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Ateliér Magdaléna. Všechna práva vyhrazena.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
